@@ -1,6 +1,7 @@
 package com.vaibhav.event_booking.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
@@ -8,17 +9,17 @@ import lombok.Data;
 public class EventRequest {
  
 
-    @NotBlank
+    @NotBlank(message = "Event tittle is requied")
      private  String tittle ; 
 
-     @NotBlank
+     @NotBlank(message = "Description is Required")
      private String description ; 
  
-     @NotBlank
+     @NotBlank(message = "Event Date is required")
      private String eventDate ; 
 
-     @Positive
-     @NotBlank
+     @Positive(message = "Seats Cannot be Negative")
+     @NotNull(message = "Seats number is Requird")
      private Long totalSeats; 
      
 

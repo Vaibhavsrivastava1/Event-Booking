@@ -5,6 +5,7 @@ package com.vaibhav.event_booking.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.vaibhav.event_booking.Exceptions.ResourceNotFound;
 import com.vaibhav.event_booking.dto.LoginRequest;
 import com.vaibhav.event_booking.dto.RegisterRequest;
 
@@ -44,7 +45,7 @@ public class UserService {
 
     public String login(LoginRequest request){
         User user = userRepository.findByEmail(request.getUsername())
-                    .orElseThrow( () -> new RuntimeException("Username Not Found "));
+                    .orElseThrow( () -> new ResourceNotFound("User does not Exist"));
 
          if( !passwordEncoder.matches(request.getPassword(), user.getPassword())){
             throw new RuntimeException("Invalid password");
@@ -52,12 +53,4 @@ public class UserService {
          }
         return jwtUtil.generateToken(user) ; 
     } 
-
-   
-
-
-
-
-    
-
 }
